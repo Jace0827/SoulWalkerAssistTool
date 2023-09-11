@@ -13,6 +13,8 @@ public class GlobalKeyListener implements NativeKeyListener {
 
     private KeyItem toggleKeyShortcut;
     private volatile boolean globalKeyReleased = false;
+    private boolean isRunning = false;
+    private boolean paused = false;
 
     public GlobalKeyListener(Object keyPress){
         repeatKeyPressInstance = null;
@@ -35,30 +37,34 @@ public class GlobalKeyListener implements NativeKeyListener {
         System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
         if(repeatKeyPressInstance != null){
 
-            if(nativeToAwtKeycode(e.getKeyCode()) == repeatKeyPressInstance.getToggleKeyShortcut().getKeyCode() ) {
+            if(nativeToAwtKeycode(e.getKeyCode()) == repeatKeyPressInstance.getToggleKeyShortcut().getKeyCode() && !paused) {
 
                 // button의 null 여부 확인
                 if (button != null) {
                     repeatKeyPressInstance.setGolobalListened(true);
                     SwingUtilities.invokeLater(() -> button.doClick());
+                    isRunning = !isRunning;
 
                 }
             }
-            else if (nativeToAwtKeycode(e.getKeyCode()) == repeatKeyPressInstance.getToggleKeyShortcut().getKeyCode() ) {
+            else if (e.getKeyCode() == NativeKeyEvent.VC_ENTER && isRunning) {
                 SwingUtilities.invokeLater(() -> button.doClick());
-            }
+                paused = !paused;
+            };
+
         }
         else if(skillProjectInstance != null){
-            if(nativeToAwtKeycode(e.getKeyCode()) == skillProjectInstance.getToggleKeyShortcut().getKeyCode() ) {
+            if(nativeToAwtKeycode(e.getKeyCode()) == skillProjectInstance.getToggleKeyShortcut().getKeyCode() && !paused) {
                 // button의 null 여부 확인
                 if (button != null) {
                     SwingUtilities.invokeLater(() -> button.doClick());
+                    isRunning = !isRunning;
                 }
             }
-            else if (nativeToAwtKeycode(e.getKeyCode()) == skillProjectInstance.getToggleKeyShortcut().getKeyCode()) {
+            else if (e.getKeyCode() == NativeKeyEvent.VC_ENTER && isRunning) {
+                paused = !paused;
+            };
 
-                SwingUtilities.invokeLater(() -> button.doClick());
-            }
         }
     }
 

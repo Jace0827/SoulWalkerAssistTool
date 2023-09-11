@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
@@ -41,8 +42,6 @@ public class Window implements NativeKeyListener {
     JLabel infoLabel;
     JPanel infoPanel = new JPanel();;
     Image icon;
-    Object[] globalKeyListenees;
-    GlobalKeyListener[] globalKeyListeners;
     public Window() {
         try {
             GlobalScreen.registerNativeHook();
@@ -152,11 +151,7 @@ public class Window implements NativeKeyListener {
 
         frame.add(masterPanel);
 
-        globalKeyListenees = new Object[]{keyPress1,keyPress2,skillProjection};
-        for(Object globalKeyListenee : globalKeyListenees){
 
-
-        }
         GlobalKeyListener globalKeyListenerKeyPress1 = new GlobalKeyListener(keyPress1);
         globalKeyListenerKeyPress1.setButton(keyPress1.getStartButton(),keyPress1.getToggleKeyShortcut());
         GlobalScreen.addNativeKeyListener(globalKeyListenerKeyPress1);

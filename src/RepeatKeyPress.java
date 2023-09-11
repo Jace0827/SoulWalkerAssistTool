@@ -11,6 +11,7 @@ public class RepeatKeyPress implements NativeKeyListener{
 
     boolean golobalListened;
     private boolean isTimerRunning;
+    private boolean pauseForChat = true;
     private Robot robot;
     private Timer timer;
     private int repeatKey;
@@ -144,6 +145,9 @@ public class RepeatKeyPress implements NativeKeyListener{
     }
     public KeyItem getToggleKeyShortcut() {
         return toggleKeyShortcut;
+    }
+    public boolean getPauseForChat(){
+        return pauseForChat;
     }
     public void setGolobalListened(boolean golobalListened) {
         this.golobalListened = golobalListened;
