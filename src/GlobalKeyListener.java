@@ -55,7 +55,7 @@ public class GlobalKeyListener implements NativeKeyListener {
         }
         else if(skillProjectInstance != null){
             if(nativeToAwtKeycode(e.getKeyCode()) == skillProjectInstance.getToggleKeyShortcut().getKeyCode() && !paused) {
-                // button의 null 여부 확인
+                // check if button is null
                 if (button != null) {
                     SwingUtilities.invokeLater(() -> button.doClick());
                     isRunning = !isRunning;

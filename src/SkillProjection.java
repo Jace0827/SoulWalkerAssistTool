@@ -23,15 +23,15 @@ public class SkillProjection {
     public final int SKILL_5_CAPTURE_X = 1013;
     public final int SKILL_6_CAPTURE_X = 1075;
     public final int SKILL_CAPTURE_Y = 972;
-    private final int CAPTURE_X = 100; // 캡쳐 시작 X 좌표
-    private final int CAPTURE_Y = 100; // 캡쳐 시작 Y 좌표
-    private final int CAPTURE_WIDTH = 48; // 캡쳐할 너비
-    private final int CAPTURE_HEIGHT = 61; // 캡쳐할 높이
+    private final int CAPTURE_X = 100; 
+    private final int CAPTURE_Y = 100; 
+    private final int CAPTURE_WIDTH = 48; 
+    private final int CAPTURE_HEIGHT = 61; 
 
-    private final int FRAME_X = 650; // 프레임 시작 X 좌표
-    private final int FRAME_Y = 500; // 프레임 시작 Y 좌표
+    private final int FRAME_X = 650; 
+    private final int FRAME_Y = 500; 
 
-    private final int CONTROL_FRAME_X = 600;// 버튼용 나중에 지우기
+    private final int CONTROL_FRAME_X = 600;
     private final int CONTROL_FRAME_Y = 500;
 
     private int[] skillXCoords;
@@ -82,7 +82,7 @@ public class SkillProjection {
         skillFrames = new JFrame[skillXCoords.length];
         skillPanels = new JPanel[skillXCoords.length];
         skillCaptures = new BufferedImage[skillXCoords.length];
-        skillLocationParam = 0.2;// 슬라이더 추가 0~1(
+        skillLocationParam = 0.2;
         skillLocationParamSilder = new JSlider(JSlider.HORIZONTAL, 0, 100, (int) (skillLocationParam * 100));
         skillLocationParamField = new JTextField(5);
         skillLocationParamField.setText(String.valueOf(skillLocationParam));
@@ -105,13 +105,13 @@ public class SkillProjection {
         toggleKeyComboBox.setPreferredSize(new Dimension(100, 25));
         toggleKeyShortcutLabel = new JLabel("Shortcut:");
         toggleKeyShortcutLabel.setPreferredSize(new Dimension(60, 25));
-        toggleKeyComboBox.setSelectedItem(new KeyItem("A", KeyEvent.VK_A));  // 예: Q 키를 기본값으로 설정
+        toggleKeyComboBox.setSelectedItem(new KeyItem("A", KeyEvent.VK_A)); 
         toggleKeyShortcut = (KeyItem) toggleKeyComboBox.getSelectedItem();
 
 
-        skillLocationParamSilder.setMajorTickSpacing(10); // 큰 눈금 간격
-        skillLocationParamSilder.setMinorTickSpacing(1);// 작은 눈금 간격
-        skillLocationParamSilder.setPaintTicks(true);     // 눈금 표시
+        skillLocationParamSilder.setMajorTickSpacing(10); // large scale interval
+        skillLocationParamSilder.setMinorTickSpacing(1);// small scale interval
+        skillLocationParamSilder.setPaintTicks(true);     // interval visible
         skillLocationParamLabel = new JLabel("position:");
 
         alpha = 0.8f;
@@ -150,13 +150,13 @@ public class SkillProjection {
                 if (skillFrames[0].isVisible()) {
                     for (JFrame skillFrame : skillFrames) {
                         skillFrame.setVisible(false);
-                        startButton.setText("Start Projection");  // 버튼의 텍스트를 "Stop"으로 변경
+                        startButton.setText("Start Projection");  // Change the button's text to "Stop"
                         timer.stop();
                     }
                 } else {
                     for (JFrame skillFrame : skillFrames) {
                         skillFrame.setVisible(true);
-                        startButton.setText("Stop Projection");  // 버튼의 텍스트를 "Start"로 변경
+                        startButton.setText("Stop Projection");  // Change the button's text to "Start"
                         timer.start();
                     }
                 }
@@ -342,8 +342,8 @@ public class SkillProjection {
         JPanel skillPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g);//컴포넌트의 기본 배경 등을 그리는데 필요한 작업
-                if (skillCaptures[index] != null) {//화면 캡쳐가 한 번 이상 수행된 경우
+                super.paintComponent(g);//Tasks required to draw the basic background of a component, etc.
+                if (skillCaptures[index] != null) {//If screen capture was performed more than once
                     g.drawImage(skillCaptures[index], 0, 0, this);
                 }
             }
@@ -351,26 +351,25 @@ public class SkillProjection {
 
 
         switch (index) {//center radius
-            case 0: // 1번점
+            case 0: 
                 skillFrame.setLocation((int) (center - (radius * Math.cos((3.14 / 2) * skillLocationParam))), FRAME_Y - (int) (radius * Math.sin((3.14 / 2) * skillLocationParam)));
                 break;
-            case 1: // 2번점
+            case 1:
                 skillFrame.setLocation((int) (center + (radius * Math.cos((3.14 / 2) * skillLocationParam))) - SKILL_WIDTH, FRAME_Y - (int) (radius * Math.sin((3.14 / 2) * skillLocationParam)));
                 break;
-            case 2: // 3번점
+            case 2: 
                 skillFrame.setLocation(FRAME_X, FRAME_Y);
                 break;
-            case 3: // 4번점
+            case 3: 
                 skillFrame.setLocation((int) (center + radius - SKILL_WIDTH), FRAME_Y);
                 break;
-            case 4: // 5번점
+            case 4: 
                 skillFrame.setLocation((int) (center - (radius * Math.cos((3.14 / 2) * skillLocationParam))), FRAME_Y + (int) ((3.14 / 2) * radius * Math.sin(skillLocationParam)));
                 break;
-            case 5: // 6번점
+            case 5: 
                 skillFrame.setLocation((int) (center + (radius * Math.cos((3.14 / 2) * skillLocationParam))) - SKILL_WIDTH, FRAME_Y + (int) ((3.14 / 2) * radius * Math.sin(skillLocationParam)));
                 break;
-            default: // 값이 배열에 없는 경우
-                // Handle case where the value is not found in the array
+            default:                 // Handle case where the value is not found in the array
                 break;
         }
         skillPanel.setPreferredSize(new Dimension(SKILL_WIDTH, SKILL_HEIGHT));

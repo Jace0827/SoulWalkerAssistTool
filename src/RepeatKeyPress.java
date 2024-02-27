@@ -49,7 +49,7 @@ public class RepeatKeyPress implements NativeKeyListener{
         toggleKeyComboBox.setPreferredSize(new Dimension(100, 25));
         toggleKeyShortcutLabel = new JLabel("Shortcut:");
         toggleKeyShortcutLabel.setPreferredSize(new Dimension(60, 25));
-        toggleKeyComboBox.setSelectedItem(new KeyItem("A", KeyEvent.VK_A));  // 예: Q 키를 기본값으로 설정
+        toggleKeyComboBox.setSelectedItem(new KeyItem("A", KeyEvent.VK_A));
         toggleKeyShortcut = (KeyItem) toggleKeyComboBox.getSelectedItem();
 
         startButton = new JButton("Start");
@@ -62,11 +62,11 @@ public class RepeatKeyPress implements NativeKeyListener{
                 if (!isTimerRunning) {
                     repeatKey = ((KeyItem) keyComboBox.getSelectedItem()).getKeyCode();
                     startRepeating();
-                    startButton.setText("Stop");  // 버튼의 텍스트를 "Stop"으로 변경
+                    startButton.setText("Stop");  // change text of the button into "Stop"
                     isTimerRunning = true;
                 } else {
                     stopRepeating();
-                    startButton.setText("Start");  // 버튼의 텍스트를 "Start"로 변경
+                    startButton.setText("Start");  // change text of the button into "Start"
                     isTimerRunning = false;
                 }
             }
@@ -87,7 +87,7 @@ public class RepeatKeyPress implements NativeKeyListener{
                 public void actionPerformed(ActionEvent e) {
                     robot.keyPress(repeatKey);
                     robot.keyRelease(repeatKey);
-                    // 매번 액션 수행 후에 타이머의 딜레이를 랜덤하게 바꿔줍니다.
+                    // The timer delay is randomly changed after each action is performed.
                     timer.setDelay(getRandomizedInterval());
                 }
             });

@@ -65,26 +65,23 @@ public class Window implements NativeKeyListener {
                 repeatKeyPressPanel2_2,skillProjectionPanel1,skillProjectionPanel2,skillProjectionPanel3,skillProjectionPanel4};
         for(JPanel subPanel : subPanels) subPanel.setLayout(new FlowLayout());
 
-        infoLabel = new JLabel("<html><font size='5'>첫번째엔 메디박스 넣고 두번째엔 힐링 젤리넣어서 먹으려고 두개 만듦" +
-                "<br>조금 버그가 있을 수도 있는데 내킬때 고침" +
-                "<br>단축키는 전부 다른걸로 해야됨. 고치기 너무 귀찬아" +
-                "<br>프로그램 키면 시간부터 설정해야 아무거나 막눌리는 참사를 막을 수 있음</html>");
-        infoPanel.setLayout(new BorderLayout());// 전체버튼 + 위치 지정
+        infoLabel = new JLabel("<html><font size='5'>comments from developer</html>");
+        infoPanel.setLayout(new BorderLayout());// All button + positioning
         infoPanel.setBounds(0, 0, 500, 700);
 
         projectFrame = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
 
-        frame.setLocation(100, 100); // 발생시 어디에 위치
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 윈도우 종료시 프로그램 같이 종료55
-        frame.setLayout(null); // 레이아웃 매니저를 사용하지 않음
+        frame.setLocation(100, 100); // occurance location
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// the program closes on windows closes
+        frame.setLayout(null); // Don't use a layout manager
 
 
-        icon = Toolkit.getDefaultToolkit().getImage("icon.jpg");// 아이콘 이미지 로드
+        icon = Toolkit.getDefaultToolkit().getImage("icon.jpg");// Load icon image
         frame.setIconImage(icon);// 아이콘 설정
 
-        frame.setPreferredSize(new Dimension(730, 500));//프레임 사이즈, 다른방법도있음
+        frame.setPreferredSize(new Dimension(730, 500));//Frame size
         frame.setResizable(false);
-        frame.setFocusable(true); // 프레임이 키 이벤트를 받을 수 있도록 설정합니다.
+        frame.setFocusable(true); // Enables the frame to receive key events.
 
         loadSettings();
         frame.addWindowListener(new WindowAdapter() {
@@ -166,7 +163,7 @@ public class Window implements NativeKeyListener {
 
 
         frame.pack();
-        frame.setVisible(true); // 프레임이 보이게
+        frame.setVisible(true); // frame visible
     }
 
     private void loadSettings() {
@@ -174,7 +171,7 @@ public class Window implements NativeKeyListener {
         if (file.exists()) {
             try {
                 List<String> lines = Files.readAllLines(Paths.get(SAVE_FILE_PATH));
-                // 예: 첫 번째 줄에 intervalField의 값을 저장
+               
                 int i = 0;
                 keyPress1.getIntervalField().setText(lines.get(i++));
                 keyPress1.getRandomIntervalField().setText(lines.get(i++));
@@ -193,11 +190,6 @@ public class Window implements NativeKeyListener {
                 skillProjection.getFPS_Field().setText(lines.get(i++));
                 skillProjection.getAlphaSlider().setValue(Integer.parseInt(lines.get(i++)));
                 skillProjection.getAlphaField().setText(lines.get(i++));
-
-
-
-
-                // 필요한 다른 설정값들도 여기서 로드
             } catch (IOException e) {
                 showErrorDialog("Error loading settings: " + e.getMessage());
             }
@@ -206,7 +198,7 @@ public class Window implements NativeKeyListener {
 
     private void saveSettings() {
         try (FileWriter writer = new FileWriter(SAVE_FILE_PATH)) {
-            // 예: 첫 번째 줄에 intervalField의 값을 저장
+            // Example: Save the value of intervalField in the first line
             writer.write(keyPress1.getIntervalField().getText() + "\n" +
                     keyPress1.getRandomIntervalField().getText() + "\n" +
                     keyPress1.getKeyComboBox().getSelectedItem().toString() + "\n" +
@@ -225,7 +217,7 @@ public class Window implements NativeKeyListener {
                     skillProjection.getAlphaSlider().getValue() + "\n" +
                     skillProjection.getAlphaField().getText() + "\n"
             );
-            // 필요한 다른 설정값들도 여기서 저장
+            
         } catch (IOException e) {
             showErrorDialog("Error saving settings: " + e.getMessage());
         }
